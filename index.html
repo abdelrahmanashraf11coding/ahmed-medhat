@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>أحمد مدحت محمد | Ahmed Medhat Mohamed</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ══════════════ NAV ══════════════ -->
+<nav>
+  <div class="nav-logo">أ. أحمد مدحت</div>
+  <ul class="nav-links">
+    <li><a href="#live"    id="nav-live">البث المباشر</a></li>
+    <li><a href="#videos"  id="nav-videos">الفيديوهات</a></li>
+    <li><a href="#about"   id="nav-about">عني</a></li>
+    <li><a href="#pricing" id="nav-pricing">الأسعار</a></li>
+    <li><a href="#contact" id="nav-contact">التواصل</a></li>
+  </ul>
+  <button class="lang-btn" onclick="toggleLang()">EN</button>
+</nav>
+
+<!-- ══════════════ HERO ══════════════ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-badge">
+        <div class="live-dot"></div>
+        <span id="hero-badge-text">متاح للحجز الآن</span>
+      </div>
+      <h1 class="hero-name" id="hero-name">أحمد مدحت<br><span>محمد</span></h1>
+      <p class="hero-title" id="hero-subtitle">مدرس رياضيات لغات تجريبي · مهندس مدني</p>
+      <div class="hero-stats">
+        <div class="stat"><div class="stat-num">+500</div><div class="stat-label" id="stat1">طالب</div></div>
+        <div class="stat"><div class="stat-num">+100</div><div class="stat-label" id="stat2">فيديو</div></div>
+        <div class="stat"><div class="stat-num">5★</div><div class="stat-label"   id="stat3">تقييم</div></div>
+      </div>
+      <div class="hero-btns">
+        <a href="#live"    class="btn-primary"   id="hero-btn1">🎥 ابدأ التعلم</a>
+        <a href="#contact" class="btn-secondary"  id="hero-btn2">تواصل معنا</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="profile-card">
+        <div class="profile-img-wrap" style="position:relative;overflow:hidden;">
+          <img src="ahmed.jpg" alt="أحمد مدحت محمد"
+               style="width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:top;display:block;"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="profile-fallback" style="display:none;width:100%;height:100%;position:absolute;top:0;left:0;border-radius:50%;background:linear-gradient(135deg,#C9A84C33,#1A1A26);align-items:center;justify-content:center;font-size:3.5rem;">👨‍🏫</div>
+          <div class="online-badge"></div>
+        </div>
+        <div class="profile-name" id="card-name">أحمد مدحت محمد</div>
+        <div style="font-size:0.85rem;color:var(--text-muted)" id="card-role">مدرس رياضيات · مهندس مدني</div>
+        <div class="profile-tags">
+          <span class="tag"      id="tag1">رياضيات لغات</span>
+          <span class="tag blue" id="tag2">هندسة مدنية</span>
+          <span class="tag"      id="tag3">تجريبي</span>
+          <span class="tag blue" id="tag4">بكالوريوس</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ LIVE ══════════════ -->
+<section id="live">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label" id="live-label">البث المباشر</span>
+      <h2 class="section-title"   id="live-title">احضر المحاضرة Live</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="live-banner">
+      <div class="live-icon">📡</div>
+      <h2 id="live-h2">انضم للمحاضرة الآن</h2>
+      <p  id="live-desc">سجّل اسمك وانضم فوراً للبث المباشر — المحاضرات متاحة لايف وتُسجّل تلقائياً</p>
+      <div class="join-form">
+        <input type="text" id="studentName" placeholder="اسمك الكريم..." />
+        <button class="btn-primary" onclick="joinLive()" id="join-btn">انضم الآن 🔴</button>
+      </div>
+    </div>
+    <div class="schedule-grid">
+      <div class="schedule-card">
+        <div class="schedule-day"><div class="day">السبت</div><div class="time">5 م</div></div>
+        <div class="schedule-info">
+          <h4 id="sched1-title">رياضيات الصف الأول الثانوي</h4>
+          <p>الجبر والمعادلات</p>
+        </div>
+        <span class="live-tag">قريباً</span>
+      </div>
+      <div class="schedule-card">
+        <div class="schedule-day"><div class="day">الاثنين</div><div class="time">6 م</div></div>
+        <div class="schedule-info">
+          <h4 id="sched2-title">رياضيات الثانوي العام</h4>
+          <p>الهندسة التحليلية</p>
+        </div>
+        <span class="live-tag" style="background:rgba(46,204,113,0.15);border-color:rgba(46,204,113,0.4);color:#2ECC71">مباشر</span>
+      </div>
+      <div class="schedule-card">
+        <div class="schedule-day"><div class="day">الأربعاء</div><div class="time">7 م</div></div>
+        <div class="schedule-info">
+          <h4 id="sched3-title">رياضيات هندسية متقدمة</h4>
+          <p>ميكانيكا وحسابات إنشائية</p>
+        </div>
+        <span class="live-tag">قريباً</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ VIDEOS ══════════════ -->
+<section id="videos">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label" id="videos-label">المكتبة التعليمية</span>
+      <h2 class="section-title"   id="videos-title">الفيديوهات التعليمية</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="filter-tabs">
+      <button class="filter-tab active" onclick="filterVideos('all',this)"      id="f-all">الكل</button>
+      <button class="filter-tab"        onclick="filterVideos('youtube',this)"  id="f-yt">YouTube</button>
+      <button class="filter-tab"        onclick="filterVideos('uploaded',this)" id="f-up">مرفوع مباشر</button>
+      <button class="filter-tab"        onclick="filterVideos('grade1',this)"   id="f-g1">أول ثانوي</button>
+      <button class="filter-tab"        onclick="filterVideos('grade2',this)"   id="f-g2">تاني ثانوي</button>
+      <button class="filter-tab"        onclick="filterVideos('grade3',this)"   id="f-g3">تالت ثانوي</button>
+    </div>
+    <div class="videos-grid" id="videosGrid"></div>
+  </section>
+
+<!-- ══════════════ ABOUT ══════════════ -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text">
+        <h2 id="about-h2">من أنا؟ <span>أحمد مدحت</span></h2>
+        <p id="about-p1">مدرس رياضيات لغات تجريبي مع خبرة واسعة في تبسيط المفاهيم الصعبة وجعل الرياضيات ممتعة لكل الطلاب. أؤمن أن كل طالب قادر على التفوق.</p>
+        <p id="about-p2">بالإضافة لذلك، أنا مهندس مدني مما يجعل شرحي للرياضيات مرتبطاً بالتطبيق العملي الحقيقي في الحياة والهندسة.</p>
+        <div class="skills-list">
+          <div class="skill-item"><label><span id="sk1">رياضيات ثانوي</span><span>98%</span></label><div class="skill-bar"><div class="skill-fill" style="width:98%"></div></div></div>
+          <div class="skill-item"><label><span id="sk2">هندسة تحليلية</span><span>95%</span></label><div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div></div>
+          <div class="skill-item"><label><span id="sk3">التفاضل والتكامل</span><span>93%</span></label><div class="skill-bar"><div class="skill-fill" style="width:93%"></div></div></div>
+          <div class="skill-item"><label><span id="sk4">ميكانيكا هندسية</span><span>90%</span></label><div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div></div>
+        </div>
+      </div>
+      <div>
+        <div class="certs-grid">
+          <div class="cert-card"><div class="cert-icon">🎓</div><h4 id="cert1-h">بكالوريوس هندسة مدنية</h4><p id="cert1-p">مهندس مرخص</p></div>
+          <div class="cert-card"><div class="cert-icon">📐</div><h4 id="cert2-h">مدرس رياضيات لغات</h4><p id="cert2-p">تجريبي معتمد</p></div>
+          <div class="cert-card"><div class="cert-icon">🏆</div><h4 id="cert3-h">+500 طالب ناجح</h4><p id="cert3-p">نتائج ممتازة</p></div>
+          <div class="cert-card"><div class="cert-icon">⭐</div><h4 id="cert4-h">تقييم 5 نجوم</h4><p id="cert4-p">من آراء الطلاب</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ PRICING ══════════════ -->
+<section id="pricing">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label" id="pricing-label">الأسعار</span>
+      <h2 class="section-title"   id="pricing-title">اختر باقتك</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="pricing-grid">
+
+      <!-- باقة 1 -->
+      <div class="price-card">
+        <div class="price-icon">📚</div>
+        <div class="price-name" id="p1-name">باقة المحاضرة الواحدة</div>
+        <div class="price-amount">150 <span id="p1-cur">ج.م</span></div>
+        <ul class="price-features">
+          <li id="pf1-1">محاضرة لايف</li>
+          <li id="pf1-2">تسجيل المحاضرة</li>
+          <li id="pf1-3">مذكرة PDF</li>
+        </ul>
+        <a href="https://wa.me/201118541290?text=مرحباً أستاذ أحمد، أريد حجز باقة المحاضرة الواحدة (150 ج.م)" target="_blank" class="btn-secondary whatsapp-btn" id="p1-btn">احجز الآن</a>
+      </div>
+
+      <!-- باقة 2 — الأكثر طلباً -->
+      <div class="price-card featured">
+        <div class="featured-badge" id="feat-badge">الأكثر طلباً ⭐</div>
+        <div class="price-icon">🚀</div>
+        <div class="price-name" id="p2-name">الباقة الشهرية</div>
+        <div class="price-amount">800 <span id="p2-cur">ج.م/شهر</span></div>
+        <ul class="price-features">
+          <li id="pf2-1">8 محاضرات لايف</li>
+          <li id="pf2-2">كل التسجيلات</li>
+          <li id="pf2-3">مذكرات ومراجعات</li>
+          <li id="pf2-4">تواصل مباشر</li>
+          <li id="pf2-5">واجبات وتصحيح</li>
+        </ul>
+        <a href="https://wa.me/201118541290?text=مرحباً أستاذ أحمد، أريد الاشتراك في الباقة الشهرية (800 ج.م/شهر)" target="_blank" class="btn-primary whatsapp-btn" id="p2-btn">ابدأ الآن</a>
+      </div>
+
+      <!-- باقة 3 -->
+      <div class="price-card">
+        <div class="price-icon">💎</div>
+        <div class="price-name" id="p3-name">باقة الترم كامل</div>
+        <div class="price-amount">2500 <span id="p3-cur">ج.م/ترم</span></div>
+        <ul class="price-features">
+          <li id="pf3-1">كل المحاضرات</li>
+          <li id="pf3-2">تسجيل كامل</li>
+          <li id="pf3-3">مراجعات نهائية</li>
+          <li id="pf3-4">دعم مستمر</li>
+          <li id="pf3-5">اختبارات تجريبية</li>
+        </ul>
+        <a href="https://wa.me/201118541290?text=مرحباً أستاذ أحمد، أريد حجز باقة الترم كامل (2500 ج.م)" target="_blank" class="btn-secondary whatsapp-btn" id="p3-btn">احجز الآن</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ CONTACT ══════════════ -->
+<section id="contact">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label" id="contact-label">التواصل</span>
+      <h2 class="section-title"   id="contact-title">تواصل معنا</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h2 id="contact-h2">نحن هنا لمساعدتك</h2>
+        <p  id="contact-desc">لأي استفسار عن الحصص أو الجداول أو الأسعار — تواصل معنا فوراً عبر واتساب أو ابعت رسالة هنا</p>
+        <div class="contact-links">
+          <a href="https://wa.me/201118541290" class="contact-link" target="_blank">
+            <span class="contact-link-icon">📱</span>
+            <div><small id="cl1">واتساب</small><strong>+20 111 854 1290</strong></div>
+          </a>
+          <a href="https://facebook.com" class="contact-link" target="_blank">
+            <span class="contact-link-icon">📘</span>
+            <div><small id="cl2">فيسبوك</small><strong>Ahmed Medhat Math</strong></div>
+          </a>
+          <a href="https://youtube.com" class="contact-link" target="_blank">
+            <span class="contact-link-icon">▶️</span>
+            <div><small id="cl3">يوتيوب</small><strong>قناة أحمد مدحت</strong></div>
+          </a>
+        </div>
+      </div>
+      <form class="contact-form" onsubmit="sendToWhatsApp(event)">
+        <div class="form-group">
+          <label id="fl-name">الاسم</label>
+          <input type="text" id="cf-name" required placeholder="اسمك الكريم">
+        </div>
+        <div class="form-group">
+          <label id="fl-phone">رقم الموبايل</label>
+          <input type="tel" id="cf-phone" required placeholder="01xxxxxxxxx">
+        </div>
+        <div class="form-group">
+          <label id="fl-grade">الصف الدراسي</label>
+          <select id="cf-grade">
+            <option id="g-opt0">اختر الصف...</option>
+            <option id="g-opt1">أول ثانوي</option>
+            <option id="g-opt2">ثاني ثانوي</option>
+            <option id="g-opt3">ثالث ثانوي</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label id="fl-msg">رسالتك</label>
+          <textarea id="cf-msg" placeholder="اكتب استفسارك هنا..."></textarea>
+        </div>
+        <button type="submit" class="btn-primary" style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px" id="submit-btn">
+          <span>إرسال عبر واتساب</span>
+          <span style="font-size:1.2rem">📱</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p id="footer-text">© 2025 <span>أحمد مدحت محمد</span> · جميع الحقوق محفوظة</p>
+</footer>
+
+<!-- ══════════════ TOAST ══════════════ -->
+<div class="toast" id="toast"></div>
+
+<!-- ══════════════ VIDEO MODAL ══════════════ -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modalTitle" style="font-size:1rem;font-weight:700;margin-bottom:1rem;padding-right:2.5rem"></div>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<!-- ══════════════ ADMIN LOGIN MODAL ══════════════ -->
+<div class="modal-overlay" id="adminLoginModal" onclick="closeAdminLogin(event)">
+  <div class="modal-content" style="max-width:400px">
+    <button class="modal-close" onclick="closeAdminLogin()">✕</button>
+    <div style="text-align:center;margin-bottom:1.5rem">
+      <div style="font-size:2.5rem;margin-bottom:0.5rem">🔐</div>
+      <h2 style="font-size:1.3rem;font-weight:700">دخول الأدمن</h2>
+      <p style="color:var(--text-muted);font-size:0.85rem;margin-top:0.5rem">أدخل كلمة المرور للوصول للوحة التحكم</p>
+    </div>
+    <div class="form-group">
+      <label>كلمة المرور</label>
+      <input type="password" id="adminPass" placeholder="••••••••" onkeydown="if(event.key==='Enter')checkAdmin()">
+    </div>
+    <button class="btn-primary" style="width:100%;margin-top:1rem" onclick="checkAdmin()">دخول ⚡</button>
+    <div id="adminError" style="color:#E74C3C;text-align:center;margin-top:0.75rem;font-size:0.85rem;display:none">كلمة المرور غلط!</div>
+  </div>
+</div>
+
+<!-- ══════════════ ADMIN PANEL ══════════════ -->
+<div class="admin-panel" id="adminPanel">
+  <div class="admin-header">
+    <div>
+      <h2>⚙️ لوحة تحكم الأدمن</h2>
+      <p style="color:var(--text-muted);font-size:0.85rem">مرحباً بك يا أستاذ أحمد!</p>
+    </div>
+    <button class="btn-secondary" onclick="closeAdmin()" style="padding:8px 16px">✕ إغلاق</button>
+  </div>
+
+  <!-- Tabs -->
+  <div class="admin-tabs">
+    <button class="admin-tab active" onclick="switchTab('videos',this)">🎬 الفيديوهات</button>
+    <button class="admin-tab"        onclick="switchTab('pricing',this)">💰 الأسعار</button>
+    <button class="admin-tab"        onclick="switchTab('schedule',this)">📅 الجدول</button>
+    <button class="admin-tab"        onclick="switchTab('info',this)">ℹ️ المعلومات</button>
+  </div>
+
+  <!-- TAB: VIDEOS -->
+  <div class="admin-section" id="tab-videos">
+    <h3 class="admin-section-title">إدارة الفيديوهات</h3>
+    <div style="display:flex;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap">
+      <button class="btn-primary" onclick="adminAddYouTube()">+ إضافة يوتيوب</button>
+      <button class="btn-secondary" onclick="document.getElementById('adminFileInput').click()">+ رفع فيديو</button>
+      <input type="file" id="adminFileInput" accept="video/*" style="display:none" onchange="adminUpload(this)">
+    </div>
+    <div id="adminVideosList"></div>
+  </div>
+
+  <!-- TAB: PRICING -->
+  <div class="admin-section" id="tab-pricing" style="display:none">
+    <h3 class="admin-section-title">تعديل الأسعار</h3>
+    <div class="admin-form-grid">
+      <!-- Plan 1 -->
+      <div class="admin-card">
+        <h4>📚 باقة المحاضرة الواحدة</h4>
+        <div class="form-group"><label>السعر (ج.م)</label><input type="number" id="price1" value="150"></div>
+        <div class="form-group"><label>المميزات (كل سطر ميزة)</label><textarea id="features1" rows="3">محاضرة لايف
+تسجيل المحاضرة
+مذكرة PDF</textarea></div>
+      </div>
+      <!-- Plan 2 -->
+      <div class="admin-card">
+        <h4>🚀 الباقة الشهرية</h4>
+        <div class="form-group"><label>السعر (ج.م/شهر)</label><input type="number" id="price2" value="800"></div>
+        <div class="form-group"><label>المميزات</label><textarea id="features2" rows="5">8 محاضرات لايف
+كل التسجيلات
+مذكرات ومراجعات
+تواصل مباشر
+واجبات وتصحيح</textarea></div>
+      </div>
+      <!-- Plan 3 -->
+      <div class="admin-card">
+        <h4>💎 باقة الترم كامل</h4>
+        <div class="form-group"><label>السعر (ج.م/ترم)</label><input type="number" id="price3" value="2500"></div>
+        <div class="form-group"><label>المميزات</label><textarea id="features3" rows="5">كل المحاضرات
+تسجيل كامل
+مراجعات نهائية
+دعم مستمر
+اختبارات تجريبية</textarea></div>
+      </div>
+    </div>
+    <button class="btn-primary" onclick="savePricing()" style="margin-top:1.5rem">💾 حفظ التغييرات</button>
+  </div>
+
+  <!-- TAB: SCHEDULE -->
+  <div class="admin-section" id="tab-schedule" style="display:none">
+    <h3 class="admin-section-title">تعديل جدول المحاضرات</h3>
+    <div class="admin-form-grid">
+      <div class="admin-card">
+        <h4>📅 المحاضرة الأولى</h4>
+        <div class="form-group"><label>اليوم</label><input type="text" id="day1" value="السبت"></div>
+        <div class="form-group"><label>الوقت</label><input type="text" id="time1" value="5 م"></div>
+        <div class="form-group"><label>العنوان</label><input type="text" id="title1" value="رياضيات الصف الأول الثانوي"></div>
+        <div class="form-group"><label>الموضوع</label><input type="text" id="sub1" value="الجبر والمعادلات"></div>
+        <div class="form-group"><label>الحالة</label>
+          <select id="status1">
+            <option value="soon">قريباً</option>
+            <option value="live">مباشر الآن</option>
+          </select>
+        </div>
+      </div>
+      <div class="admin-card">
+        <h4>📅 المحاضرة الثانية</h4>
+        <div class="form-group"><label>اليوم</label><input type="text" id="day2" value="الاثنين"></div>
+        <div class="form-group"><label>الوقت</label><input type="text" id="time2" value="6 م"></div>
+        <div class="form-group"><label>العنوان</label><input type="text" id="title2" value="رياضيات الثانوي العام"></div>
+        <div class="form-group"><label>الموضوع</label><input type="text" id="sub2" value="الهندسة التحليلية"></div>
+        <div class="form-group"><label>الحالة</label>
+          <select id="status2">
+            <option value="live">مباشر الآن</option>
+            <option value="soon">قريباً</option>
+          </select>
+        </div>
+      </div>
+      <div class="admin-card">
+        <h4>📅 المحاضرة الثالثة</h4>
+        <div class="form-group"><label>اليوم</label><input type="text" id="day3" value="الأربعاء"></div>
+        <div class="form-group"><label>الوقت</label><input type="text" id="time3" value="7 م"></div>
+        <div class="form-group"><label>العنوان</label><input type="text" id="title3" value="رياضيات هندسية متقدمة"></div>
+        <div class="form-group"><label>الموضوع</label><input type="text" id="sub3" value="ميكانيكا وحسابات إنشائية"></div>
+        <div class="form-group"><label>الحالة</label>
+          <select id="status3">
+            <option value="soon">قريباً</option>
+            <option value="live">مباشر الآن</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="admin-card" style="margin-top:1rem">
+      <h4>🔗 رابط Google Meet</h4>
+      <div class="form-group">
+        <label>الصق رابط الحصة اللايف هنا</label>
+        <input type="url" id="meetLink" placeholder="https://meet.google.com/xxx-xxxx-xxx">
+      </div>
+    </div>
+    <button class="btn-primary" onclick="saveSchedule()" style="margin-top:1.5rem">💾 حفظ الجدول</button>
+  </div>
+
+  <!-- TAB: INFO -->
+  <div class="admin-section" id="tab-info" style="display:none">
+    <h3 class="admin-section-title">تعديل المعلومات الشخصية</h3>
+    <div class="admin-form-grid">
+      <div class="admin-card">
+        <h4>👤 البيانات الأساسية</h4>
+        <div class="form-group"><label>الاسم</label><input type="text" id="infoName" value="أحمد مدحت محمد"></div>
+        <div class="form-group"><label>التخصص</label><input type="text" id="infoRole" value="مدرس رياضيات لغات تجريبي · مهندس مدني"></div>
+        <div class="form-group"><label>رقم الواتساب</label><input type="text" id="infoWA" value="201118541290"></div>
+        <div class="form-group"><label>رابط الفيسبوك</label><input type="url" id="infoFB" value="https://facebook.com"></div>
+        <div class="form-group"><label>رابط اليوتيوب</label><input type="url" id="infoYT" value="https://youtube.com"></div>
+      </div>
+      <div class="admin-card">
+        <h4>📊 الإحصائيات</h4>
+        <div class="form-group"><label>عدد الطلاب</label><input type="text" id="statStudents" value="+500"></div>
+        <div class="form-group"><label>عدد الفيديوهات</label><input type="text" id="statVideos" value="+100"></div>
+        <div class="form-group"><label>التقييم</label><input type="text" id="statRating" value="5★"></div>
+      </div>
+    </div>
+    <button class="btn-primary" onclick="saveInfo()" style="margin-top:1.5rem">💾 حفظ المعلومات</button>
+  </div>
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>
