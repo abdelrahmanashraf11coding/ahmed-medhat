@@ -3,12 +3,12 @@
    ════════════════════════════════════════════ */
 
 const WHATSAPP_NUMBER = '201118541290';
-const ADMIN_PASSWORD  = 'ahmed2025';   // ← غيّر كلمة المرور هنا
+const ADMIN_PASSWORD  = 'Ahmed medhat 2002';   // ← غيّر كلمة المرور هنا
 
 /* ─────────────────────────────────────────────
    DATA
 ───────────────────────────────────────────── */
-let videos = [
+const DEFAULT_VIDEOS = [
   { id:1, title:'الجبر - حل المعادلات',  subtitle:'أول ثانوي',  duration:'45:20', level:'easy', type:'youtube',  ytId:'dQw4w9WgXcQ', thumb:'https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg' },
   { id:2, title:'الهندسة التحليلية',      subtitle:'تاني ثانوي', duration:'52:10', level:'mid',  type:'youtube',  ytId:'dQw4w9WgXcQ', thumb:'https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg' },
   { id:3, title:'التفاضل والتكامل',       subtitle:'تالت ثانوي', duration:'61:00', level:'hard', type:'uploaded', thumb:'', ytId:null },
@@ -16,6 +16,24 @@ let videos = [
   { id:5, title:'الإحصاء والاحتمالات',   subtitle:'أول ثانوي',  duration:'44:30', level:'easy', type:'uploaded', thumb:'', ytId:null },
   { id:6, title:'المثلثات والدوال',       subtitle:'تالت ثانوي', duration:'55:15', level:'hard', type:'youtube',  ytId:'dQw4w9WgXcQ', thumb:'https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg' },
 ];
+
+/* ── localStorage: load videos or use defaults ── */
+function loadVideos() {
+  try {
+    const saved = localStorage.getItem('am_videos');
+    return saved ? JSON.parse(saved) : [...DEFAULT_VIDEOS];
+  } catch(e) { return [...DEFAULT_VIDEOS]; }
+}
+
+function saveVideos() {
+  try {
+    // Don't save blob URLs (uploaded files) - only save youtube & metadata
+    const toSave = videos.map(v => v.src ? {...v, src: null} : v);
+    localStorage.setItem('am_videos', JSON.stringify(toSave));
+  } catch(e) { console.warn('Save failed', e); }
+}
+
+let videos = loadVideos();
 
 let currentFilter = 'all';
 const levelMap    = { easy:['level-easy','سهل'], mid:['level-mid','متوسط'], hard:['level-hard','صعب'] };
@@ -70,6 +88,7 @@ function deleteVideo(id, e) {
   if (!confirm('مؤكد تحذف الفيديو ده؟')) return;
   const i = videos.findIndex(v => v.id === id);
   if (i !== -1) videos.splice(i, 1);
+  saveVideos();
   const card = document.getElementById('vcard-' + id);
   if (card) { card.style.transition='all 0.3s'; card.style.opacity='0'; card.style.transform='scale(0.85)'; setTimeout(renderVideos,300); }
   renderAdminVideos();
@@ -108,6 +127,7 @@ function handleUpload(input) {
   if (!file) return;
   const newV = buildUploadedVideo(file);
   videos.unshift(newV);
+  saveVideos();
   renderVideos(); renderAdminVideos();
   showToast('تم رفع الفيديو ✓');
 }
@@ -120,6 +140,7 @@ function addYouTube() {
   const ytId  = match[1];
   const title = prompt('عنوان الفيديو:') || 'فيديو جديد';
   videos.unshift({ id:Date.now(), title, subtitle:'يوتيوب', duration:'--:--', level:'easy', type:'youtube', ytId, thumb:`https://img.youtube.com/vi/${ytId}/hqdefault.jpg` });
+  saveVideos();
   renderVideos(); renderAdminVideos();
   showToast('تم إضافة الفيديو ✓');
 }
@@ -251,6 +272,7 @@ function editVideo(id) {
   v.title    = t.trim() || v.title;
   v.subtitle = s.trim() || v.subtitle;
   v.level    = ['easy','mid','hard'].includes(l) ? l : v.level;
+  saveVideos();
   renderVideos(); renderAdminVideos();
   showToast('تم تعديل الفيديو ✓');
 }
@@ -265,6 +287,7 @@ function adminAddYouTube() {
   const subtitle = prompt('الصف:')             || 'عام';
   const level    = prompt('المستوى (easy/mid/hard):') || 'easy';
   videos.unshift({ id:Date.now(), title, subtitle, duration:'--:--', level:['easy','mid','hard'].includes(level)?level:'easy', type:'youtube', ytId, thumb:`https://img.youtube.com/vi/${ytId}/hqdefault.jpg` });
+  saveVideos();
   renderVideos(); renderAdminVideos();
   showToast('تم إضافة الفيديو ✓');
 }
@@ -278,6 +301,7 @@ function adminUpload(input) {
   newV.level     = prompt('المستوى (easy/mid/hard):', 'easy')      || 'easy';
   if (!['easy','mid','hard'].includes(newV.level)) newV.level = 'easy';
   videos.unshift(newV);
+  saveVideos();
   renderVideos(); renderAdminVideos();
   showToast('تم رفع الفيديو ✓');
 }
