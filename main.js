@@ -3,37 +3,62 @@
    ════════════════════════════════════════════ */
 
 const WHATSAPP_NUMBER = '201118541290';
-const ADMIN_PASSWORD  = 'Ahmed medhat 2002';   // ← غيّر كلمة المرور هنا
+const ADMIN_PASSWORD  = 'Ahmed medhat 2002';
 
 /* ─────────────────────────────────────────────
-   DATA
+   JSONBIN DATABASE
 ───────────────────────────────────────────── */
+const BIN_ID     = '6a00fac4c0954111d8047dc8';
+const MASTER_KEY = '$2a$10$kvYlQK4FlV.tu6Mn6AdKeeQvAOC1FFBa5aK..1ubHEB.mKifiWqvC';
+const BIN_URL    = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+
 const DEFAULT_VIDEOS = [
   { id:1, title:'الجبر - حل المعادلات',  subtitle:'أول ثانوي',  duration:'45:20', level:'easy', type:'youtube',  ytId:'dQw4w9WgXcQ', thumb:'https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg' },
-  { id:2, title:'الهندسة التحليلية',      subtitle:'تاني ثانوي', duration:'52:10', level:'mid',  type:'youtube',  ytId:'dQw4w9WgXcQ', thumb:'https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg' },
-  { id:3, title:'التفاضل والتكامل',       subtitle:'تالت ثانوي', duration:'61:00', level:'hard', type:'uploaded', thumb:'', ytId:null },
+  { id:2, title:'الهندسة التحليمية',      subtitle:'تاني ثانوي', duration:'52:10', level:'mid',  type:'youtube',  ytId:'dQw4w9WgXcQ', thumb:'https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg' },
+  { id:3, title:'التفاضل والتكامل',       subtitle:'تالت ثانوي', duration:'61:00', level:'hard', type:'youtube',  ytId:'dQw4w9WgXcQ', thumb:'https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg' },
   { id:4, title:'المصفوفات والمحددات',    subtitle:'تاني ثانوي', duration:'38:45', level:'mid',  type:'youtube',  ytId:'dQw4w9WgXcQ', thumb:'https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg' },
-  { id:5, title:'الإحصاء والاحتمالات',   subtitle:'أول ثانوي',  duration:'44:30', level:'easy', type:'uploaded', thumb:'', ytId:null },
+  { id:5, title:'الإحصاء والاحتمالات',   subtitle:'أول ثانوي',  duration:'44:30', level:'easy', type:'youtube',  ytId:'dQw4w9WgXcQ', thumb:'https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg' },
   { id:6, title:'المثلثات والدوال',       subtitle:'تالت ثانوي', duration:'55:15', level:'hard', type:'youtube',  ytId:'dQw4w9WgXcQ', thumb:'https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg' },
 ];
 
-/* ── localStorage: load videos or use defaults ── */
-function loadVideos() {
+let videos = [...DEFAULT_VIDEOS];
+
+/* ── Load videos from JSONBin ── */
+async function loadVideos() {
   try {
-    const saved = localStorage.getItem('am_videos');
-    return saved ? JSON.parse(saved) : [...DEFAULT_VIDEOS];
-  } catch(e) { return [...DEFAULT_VIDEOS]; }
+    const res = await fetch(BIN_URL + '/latest', {
+      headers: { 'X-Master-Key': MASTER_KEY }
+    });
+    const data = await res.json();
+    const saved = data.record?.videos;
+    if (saved && saved.length > 0) {
+      videos = saved;
+    } else {
+      videos = [...DEFAULT_VIDEOS];
+      await saveVideos(); // initialize bin with defaults
+    }
+  } catch(e) {
+    console.warn('Load failed, using defaults', e);
+    videos = [...DEFAULT_VIDEOS];
+  }
+  renderVideos();
+  renderAdminVideos();
 }
 
-function saveVideos() {
+/* ── Save videos to JSONBin ── */
+async function saveVideos() {
   try {
-    // Don't save blob URLs (uploaded files) - only save youtube & metadata
-    const toSave = videos.map(v => v.src ? {...v, src: null} : v);
-    localStorage.setItem('am_videos', JSON.stringify(toSave));
+    const toSave = videos.map(v => ({...v, src: null}));
+    await fetch(BIN_URL, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Master-Key': MASTER_KEY
+      },
+      body: JSON.stringify({ videos: toSave })
+    });
   } catch(e) { console.warn('Save failed', e); }
 }
-
-let videos = loadVideos();
 
 let currentFilter = 'all';
 const levelMap    = { easy:['level-easy','سهل'], mid:['level-mid','متوسط'], hard:['level-hard','صعب'] };
@@ -448,7 +473,12 @@ function toggleLang() {
 }
 
 /* ─── INIT ─── */
-document.addEventListener('DOMContentLoaded', renderVideos);
+document.addEventListener('DOMContentLoaded', () => {
+  // Show loading indicator
+  const grid = document.getElementById('videosGrid');
+  if (grid) grid.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:3rem">⏳ جارٍ تحميل الفيديوهات...</p>';
+  loadVideos();
+});
 
 /* ─── SECRET ADMIN SHORTCUT: Ctrl + Shift + A ─── */
 document.addEventListener('keydown', (e) => {
